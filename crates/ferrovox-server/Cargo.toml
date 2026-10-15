@@ -1,0 +1,23 @@
+[package]
+name = "ferrovox-server"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[[bin]]
+name = "ferrovox"
+path = "src/main.rs"
+
+[dependencies]
+tokio.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+anyhow.workspace = true
+num_cpus.workspace = true
+serde.workspace = true
+toml.workspace = true
+rand.workspace = true
+ferrovox-core = { path = "../ferrovox-core" }
+ferrovox-protocol-java = { path = "../ferrovox-protocol-java" }
+ferrovox-protocol-bedrock = { path = "../ferrovox-protocol-bedrock" }

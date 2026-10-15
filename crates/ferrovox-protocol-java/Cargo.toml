@@ -1,0 +1,18 @@
+[package]
+name = "ferrovox-protocol-java"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+tokio.workspace = true
+bytes.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+uuid.workspace = true
+ferrovox-core = { path = "../ferrovox-core" }
+ferrovox-net = { path = "../ferrovox-net" }
+ferrovox-nbt = { path = "../ferrovox-nbt" }

@@ -1,0 +1,17 @@
+[package]
+name = "ferrovox-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+tokio.workspace = true
+tracing.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+uuid.workspace = true
+num_cpus.workspace = true
+anyhow.workspace = true
+toml.workspace = true

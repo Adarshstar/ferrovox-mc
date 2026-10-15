@@ -1,0 +1,41 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/ferrovox-core",
+    "crates/ferrovox-net",
+    "crates/ferrovox-nbt",
+    "crates/ferrovox-protocol-java",
+    "crates/ferrovox-protocol-bedrock",
+    "crates/ferrovox-server",
+]
+
+[workspace.package]
+version = "0.0.1"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/Adarshstar/ferrovox-mc"
+authors = ["Adarshstar"]
+
+[workspace.dependencies]
+tokio = { version = "1", features = ["full"] }
+bytes = "1"
+thiserror = "2"
+anyhow = "1"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+num_cpus = "1"
+toml = "0.8"
+rand = "0.8"
+uuid = { version = "1", features = ["v3", "v4", "serde"] }
+
+[profile.release]
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+opt-level = 3
+strip = true
+
+[profile.release.package."*"]
+opt-level = 3

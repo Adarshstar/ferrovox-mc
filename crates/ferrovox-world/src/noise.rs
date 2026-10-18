@@ -4,8 +4,7 @@
 //! carving. All noise is derived from a single 64-bit seed so the same seed
 //! produces identical terrain on both Java and Bedrock clients.
 
-use std::collections::hash_map::DefaultHasher;
-use std::hash::{Hash, Hasher};
+
 
 /// A complete set of noise generators for world generation.
 #[derive(Debug, Clone)]

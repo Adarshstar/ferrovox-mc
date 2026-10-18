@@ -4,7 +4,7 @@
 //! contiguous block array that both protocol front-ends can serialize.
 
 use crate::blocks::*;
-use crate::{Block, WorldGen, SEA_LEVEL, WORLD_BOTTOM_Y, WORLD_HEIGHT};
+use crate::{WorldGen, SEA_LEVEL, WORLD_BOTTOM_Y, WORLD_HEIGHT};
 
 /// A generated 16x16 chunk section (one Y-section of 16 blocks).
 #[derive(Debug, Clone, Default)]

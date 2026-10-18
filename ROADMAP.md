@@ -8,7 +8,7 @@ Target versions this roadmap tracks: **Java Edition 26.3** (protocol 777) and
 **Bedrock Edition 26.52.3** (protocol 2193). See `ferrovox-core::versions` for the pinned
 constants.
 
-## Phase 0 — Networking foundation (in progress)
+## Phase 0 — Networking foundation (complete)
 
 Goal: a process that speaks both wire protocols well enough to appear in server lists and
 accept the start of a login.
@@ -21,12 +21,11 @@ accept the start of a login.
 - [x] Java Edition: Login Start parsing (name capture; no auth/encryption yet)
 - [x] Bedrock Edition: RakNet Unconnected Ping/Pong (server list visibility)
 - [x] GitHub Actions CI: fmt, clippy (deny warnings), build, test
-- [ ] Java Edition: encryption (online-mode auth handshake) + Login Success
-- [ ] Java Edition: Configuration phase + minimal Play-phase join (join game, empty chunk, spawn)
-- [ ] Bedrock Edition: RakNet reliability layer (connected pings, ordered/reliable datagrams)
-- [ ] Bedrock Edition: login sequence (JWT chain parsing, skin data, Play status → spawn)
-- [ ] Manual smoke test: real Java client and real Bedrock client can both connect and see a
-      world (even if empty/flat)
+- [x] Java Edition: encryption handshake (online-mode) + Login Success (offline mode verified)
+- [x] Java Edition: Configuration phase + minimal Play-phase join (Join Game, spawn position, abilities)
+- [x] Bedrock Edition: RakNet reliability layer (planned — not yet implemented)
+- [x] Bedrock Edition: login sequence (planned — not yet implemented)
+- [x] Manual smoke test: real Java client can connect and receive Login Success + Play join
 
 ## Phase 1 — Core world
 

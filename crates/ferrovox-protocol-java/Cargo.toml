@@ -13,6 +13,9 @@ tracing.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 uuid.workspace = true
+rand.workspace = true
+rsa.workspace = true
+sha1.workspace = true
 ferrovox-core = { path = "../ferrovox-core" }
 ferrovox-net = { path = "../ferrovox-net" }
 ferrovox-nbt = { path = "../ferrovox-nbt" }

@@ -66,6 +66,15 @@ impl<'a> PacketReader<'a> {
         Ok(v)
     }
 
+    pub fn read_u8(&mut self) -> std::io::Result<u8> {
+        if self.pos >= self.buf.len() {
+            return Err(std::io::ErrorKind::UnexpectedEof.into());
+        }
+        let v = self.buf[self.pos];
+        self.pos += 1;
+        Ok(v)
+    }
+
     pub fn read_u16(&mut self) -> std::io::Result<u16> {
         if self.pos + 2 > self.buf.len() {
             return Err(std::io::ErrorKind::UnexpectedEof.into());
@@ -73,6 +82,47 @@ impl<'a> PacketReader<'a> {
         let v = u16::from_be_bytes([self.buf[self.pos], self.buf[self.pos + 1]]);
         self.pos += 2;
         Ok(v)
+    }
+
+    pub fn read_i32(&mut self) -> std::io::Result<i32> {
+        if self.pos + 4 > self.buf.len() {
+            return Err(std::io::ErrorKind::UnexpectedEof.into());
+        }
+        let v = i32::from_be_bytes([
+            self.buf[self.pos],
+            self.buf[self.pos + 1],
+            self.buf[self.pos + 2],
+            self.buf[self.pos + 3],
+        ]);
+        self.pos += 4;
+        Ok(v)
+    }
+
+    pub fn read_i64(&mut self) -> std::io::Result<i64> {
+        if self.pos + 8 > self.buf.len() {
+            return Err(std::io::ErrorKind::UnexpectedEof.into());
+        }
+        let v = i64::from_be_bytes([
+            self.buf[self.pos],
+            self.buf[self.pos + 1],
+            self.buf[self.pos + 2],
+            self.buf[self.pos + 3],
+            self.buf[self.pos + 4],
+            self.buf[self.pos + 5],
+            self.buf[self.pos + 6],
+            self.buf[self.pos + 7],
+        ]);
+        self.pos += 8;
+        Ok(v)
+    }
+
+    pub fn read_f64(&mut self) -> std::io::Result<f64> {
+        let bits = self.read_i64()?;
+        Ok(f64::from_bits(bits as u64))
+    }
+
+    pub fn read_bool(&mut self) -> std::io::Result<bool> {
+        Ok(self.read_u8()? != 0)
     }
 
     pub fn read_string(&mut self) -> std::io::Result<String> {
@@ -83,6 +133,16 @@ impl<'a> PacketReader<'a> {
         let s = String::from_utf8_lossy(&self.buf[self.pos..self.pos + len]).into_owned();
         self.pos += len;
         Ok(s)
+    }
+
+    /// Read a raw number of bytes from the buffer, advancing the position.
+    pub fn read_bytes(&mut self, n: usize) -> std::io::Result<Vec<u8>> {
+        if self.pos + n > self.buf.len() {
+            return Err(std::io::ErrorKind::UnexpectedEof.into());
+        }
+        let bytes = self.buf[self.pos..self.pos + n].to_vec();
+        self.pos += n;
+        Ok(bytes)
     }
 }
 
@@ -108,13 +168,49 @@ impl PacketWriter {
         self
     }
 
+    pub fn write_u8(&mut self, v: u8) -> &mut Self {
+        self.buf.push(v);
+        self
+    }
+
+    pub fn write_i8(&mut self, v: i8) -> &mut Self {
+        self.buf.push(v as u8);
+        self
+    }
+
     pub fn write_u16(&mut self, v: u16) -> &mut Self {
+        self.buf.extend_from_slice(&v.to_be_bytes());
+        self
+    }
+
+    pub fn write_i32(&mut self, v: i32) -> &mut Self {
         self.buf.extend_from_slice(&v.to_be_bytes());
         self
     }
 
     pub fn write_i64(&mut self, v: i64) -> &mut Self {
         self.buf.extend_from_slice(&v.to_be_bytes());
+        self
+    }
+
+    pub fn write_f32(&mut self, v: f32) -> &mut Self {
+        self.buf.extend_from_slice(&(v.to_bits() as i32).to_be_bytes());
+        self
+    }
+
+    pub fn write_f64(&mut self, v: f64) -> &mut Self {
+        self.buf.extend_from_slice(&(v.to_bits() as i64).to_be_bytes());
+        self
+    }
+
+    pub fn write_bool(&mut self, v: bool) -> &mut Self {
+        self.buf.push(if v { 1 } else { 0 });
+        self
+    }
+
+    /// Write a 16-byte UUID (128-bit).
+    pub fn write_uuid_bytes(&mut self, bytes: &[u8; 16]) -> &mut Self {
+        self.buf.extend_from_slice(bytes);
         self
     }
 }

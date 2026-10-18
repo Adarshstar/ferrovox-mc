@@ -29,6 +29,8 @@ num_cpus = "1"
 toml = "0.8"
 rand = "0.8"
 uuid = { version = "1", features = ["v3", "v4", "serde"] }
+rsa = "0.9"
+sha1 = "0.10"
 
 [profile.release]
 lto = "fat"

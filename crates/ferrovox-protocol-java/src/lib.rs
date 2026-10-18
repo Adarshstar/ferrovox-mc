@@ -6,6 +6,7 @@
 //! in later phases as the world/entity systems come online.
 
 pub mod connection;
+pub mod encryption;
 pub mod packet;
 pub mod state;
 pub mod status;

@@ -215,6 +215,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "ferrovox-world"
+version = "0.0.1"
+
+[[package]]
 name = "futures-core"
 version = "0.3.34"
 source = "registry+https://github.com/rust-lang/crates.io-index"

@@ -7,6 +7,7 @@ members = [
     "crates/ferrovox-protocol-java",
     "crates/ferrovox-protocol-bedrock",
     "crates/ferrovox-server",
+    "crates/ferrovox-world",
 ]
 
 [workspace.package]
